@@ -1,0 +1,24 @@
+{
+  "name": "ellsif/util",
+  "description": "Util functions",
+  "keywords": ["php", "util"],
+  "type": "libraries",
+  "license": "MIT",
+  "homepage": "https://github.com/ellsif/util",
+  "authors": [
+    {
+      "name": "ellsif",
+      "email": "hatasu@ellsif.com"
+    }
+  ],
+  "require-dev": {
+    "phpunit/phpunit": "6.0.*"
+  },
+  "autoload": {
+    "psr-4": {
+      "ellsif\\util\\": [
+        "src/"
+      ]
+    }
+  }
+}
