@@ -73,6 +73,7 @@ class FileUtil
     {
         $paths = [];
         foreach ($directories as $dir) {
+            if (!is_dir($dir)) continue;
             $it = new \RecursiveDirectoryIterator($dir,
                 \FilesystemIterator::CURRENT_AS_FILEINFO |
                 \FilesystemIterator::KEY_AS_PATHNAME |
