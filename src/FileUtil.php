@@ -109,7 +109,7 @@ class FileUtil
             $fp = fopen($phpFilePath, 'r');
             while ($line = fgets($fp)) {
                 if (strpos($line, 'namespace ') !== false) {
-                    $nameSpace = rtrim(substr($line, strpos($line, 'namespace ') + 10), " ;\n");
+                    $nameSpace = rtrim(rtrim(substr($line, strpos($line, 'namespace ') + 10)), ";");
                     break;
                 }
             }
