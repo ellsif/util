@@ -20,8 +20,8 @@ class StringUtil
      */
     public static function rightRemove(string $str, string $suffix)
     {
-        if (($pos = mb_strpos($str, $suffix)) >= 0) {
-            return mb_substr($str, 0, $pos);
+        if (self::endsWith($str, $suffix)) {
+            return mb_substr($str, 0, mb_strlen($str) - mb_strlen($suffix));
         }
         return $str;
     }

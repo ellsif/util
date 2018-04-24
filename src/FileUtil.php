@@ -100,13 +100,10 @@ class FileUtil
         $paths = [];
         foreach ($directories as $dir) {
             if (!is_dir($dir)) continue;
-            $iterator = new \DirectoryIterator($dir,
-                \FilesystemIterator::CURRENT_AS_FILEINFO |
-                \FilesystemIterator::KEY_AS_PATHNAME |
-                \FilesystemIterator::SKIP_DOTS);
+            $iterator = new \DirectoryIterator($dir);
             foreach ($iterator as $path => $info) {
-                if ($info->isFile()) {
-                    $paths[] = $path;
+                if ($info->isFile() && !$info->isDot()) {
+                    $paths[] = StringUtil::rightRemove($dir, '/') . '/' . $info->getFilename();
                 }
             }
         }
