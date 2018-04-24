@@ -64,12 +64,12 @@ class FileUtil
     }
 
     /**
-     * ファイルの一覧を取得する。
+     * ファイルの一覧を再帰的に取得します。
      *
      * ## 説明
      * 指定されたディレクトリのファイルを再帰的に取得して返します。
      */
-    public static function getFileList(array $directories): array
+    public static function getFileListRecursive(array $directories): array
     {
         $paths = [];
         foreach ($directories as $dir) {
@@ -80,7 +80,7 @@ class FileUtil
                 \FilesystemIterator::SKIP_DOTS);
             $iterator = new \RecursiveIteratorIterator($it);
             foreach ($iterator as $path => $info) {
-                if ($info->isFIle()) {
+                if ($info->isFile()) {
                     $paths[] = $path;
                 }
             }
@@ -89,6 +89,29 @@ class FileUtil
     }
 
 
+    /**
+     * ファイルの一覧を取得します。
+     *
+     * ## 説明
+     *
+     */
+    public static function getFileList(array $directories): array
+    {
+        $paths = [];
+        foreach ($directories as $dir) {
+            if (!is_dir($dir)) continue;
+            $iterator = new \DirectoryIterator($dir,
+                \FilesystemIterator::CURRENT_AS_FILEINFO |
+                \FilesystemIterator::KEY_AS_PATHNAME |
+                \FilesystemIterator::SKIP_DOTS);
+            foreach ($iterator as $path => $info) {
+                if ($info->isFile()) {
+                    $paths[] = $path;
+                }
+            }
+        }
+        return $paths;
+    }
 
     /**
      * phpファイルからnamespaceを取得する。
